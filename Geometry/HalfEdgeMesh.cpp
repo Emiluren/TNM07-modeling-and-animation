@@ -26,12 +26,20 @@ HalfEdgeMesh::~HalfEdgeMesh() {}
  * \param[in] v3 vertex 3, Vector3<float>
  */
 bool HalfEdgeMesh::AddFace(const std::vector<Vector3<float> > &verts) {
-  // Add your code here
-  std::cerr << "ADD TRIANGLE NOT IMPLEMENTED. ";
-
   // Add the vertices of the face/triangle
+  size_t indices[3];
+  AddVertex(verts.at(0), indices[0]);
+  AddVertex(verts.at(1), indices[1]);
+  AddVertex(verts.at(2), indices[2]);
 
   // Add all half-edge pairs
+  for (int i = 0; i < 4; i++) {
+    size_t v1 = indices[i];
+    size_t v2 = indices[i + 1 % 3];
+
+    size_t edge_ind1, edge_ind2;
+    AddHalfEdgePair(v1, v2, edge_ind1, edge_ind2);
+  }
 
   // Connect inner ring
 
