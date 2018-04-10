@@ -146,7 +146,7 @@ protected:
   /*! \brief A face has a normal and an index to an edge
    */
   struct Face : public Mesh::Face {
-    Face() : edge(UNINITIALIZED) {}
+    Face(size_t edge) : edge(edge) {}
     size_t edge; //!< index into mEdges
   };
 

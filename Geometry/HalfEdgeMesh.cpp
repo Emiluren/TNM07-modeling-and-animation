@@ -27,26 +27,36 @@ HalfEdgeMesh::~HalfEdgeMesh() {}
  */
 bool HalfEdgeMesh::AddFace(const std::vector<Vector3<float> > &verts) {
   // Add the vertices of the face/triangle
-  size_t indices[3];
-  AddVertex(verts.at(0), indices[0]);
-  AddVertex(verts.at(1), indices[1]);
-  AddVertex(verts.at(2), indices[2]);
+  size_t v_ind1, v_ind2, v_ind3;;
+  AddVertex(verts[0], v_ind1);
+  AddVertex(verts[1], v_ind2);
+  AddVertex(verts[2], v_ind3);
 
+  size_t e_ind1, e_ind2, e_ind3, e_dummy;
   // Add all half-edge pairs
-  for (int i = 0; i < 4; i++) {
-    size_t v1 = indices[i];
-    size_t v2 = indices[i + 1 % 3];
-
-    size_t edge_ind1, edge_ind2;
-    AddHalfEdgePair(v1, v2, edge_ind1, edge_ind2);
-  }
+  AddHalfEdgePair(v_ind1, v_ind2, e_ind1, e_dummy);
+  AddHalfEdgePair(v_ind2, v_ind3, e_ind2, e_dummy);
+  AddHalfEdgePair(v_ind3, v_ind1, e_ind3, e_dummy);
 
   // Connect inner ring
+  e(e_ind1).next = e_ind2;
+  e(e_ind2).next = e_ind3;
+  e(e_ind3).next = e_ind1;
 
-  // Finally, create the face, don't forget to set the normal (which should be
-  // normalized)
+  e(e_ind1).prev = e_ind3;
+  e(e_ind2).prev = e_ind1;
+  e(e_ind3).prev = e_ind2;
+
+  // Finally, create the face, and set the normal
+  Face tri(e_ind1);
+  mFaces.push_back(tri);
+  size_t face_index = mFaces.size() - 1;
+  mFaces.back().normal = FaceNormal(face_index);
 
   // All half-edges share the same left face (previously added)
+  e(e_ind1).face = face_index;
+  e(e_ind2).face = face_index;
+  e(e_ind3).face = face_index;
 
   // Optionally, track the (outer) boundary half-edges
   // to represent non-closed surfaces
@@ -154,9 +164,16 @@ void HalfEdgeMesh::Validate() {
     if ((*iterEdge).face == UNINITIALIZED ||
         (*iterEdge).next == UNINITIALIZED ||
         (*iterEdge).pair == UNINITIALIZED ||
-        (*iterEdge).prev == UNINITIALIZED || (*iterEdge).vert == UNINITIALIZED)
+        (*iterEdge).prev == UNINITIALIZED || (*iterEdge).vert == UNINITIALIZED) {
       std::cerr << "HalfEdge " << iterEdge - mEdges.begin()
                 << " not properly initialized" << std::endl;
+
+      if ((*iterEdge).face == UNINITIALIZED) std::cerr << "face\n";
+      if ((*iterEdge).next == UNINITIALIZED) std::cerr << "next\n";
+      if ((*iterEdge).pair == UNINITIALIZED) std::cerr << "pair\n";
+      if ((*iterEdge).prev == UNINITIALIZED) std::cerr << "prev\n";
+      if ((*iterEdge).vert == UNINITIALIZED) std::cerr << "vert\n";
+    }
 
     iterEdge++;
   }
