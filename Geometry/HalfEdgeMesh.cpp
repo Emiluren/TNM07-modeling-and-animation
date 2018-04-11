@@ -312,11 +312,13 @@ Vector3<float> HalfEdgeMesh::FaceNormal(size_t faceIndex) const {
 }
 
 Vector3<float> HalfEdgeMesh::VertexNormal(size_t vertexIndex) const {
-
+  // Vertex normal calculation does not take face areas into account for now
+  std::vector<size_t> neighborFaces = FindNeighborFaces(vertexIndex);
   Vector3<float> n(0, 0, 0);
-
-  // Add your code here
-  return n;
+  for (size_t faceIndex : neighborFaces) {
+    n += f(faceIndex).normal;
+  }
+  return n.Normalize();
 }
 
 void HalfEdgeMesh::Initialize() {
