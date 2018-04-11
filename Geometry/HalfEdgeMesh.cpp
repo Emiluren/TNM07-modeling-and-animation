@@ -249,7 +249,14 @@ HalfEdgeMesh::FindNeighborVertices(size_t vertexIndex) const {
   // Collected vertices, sorted counter clockwise!
   std::vector<size_t> oneRing;
 
-  // Add your code here
+  size_t startEdgeIndex = v(vertexIndex).edge;
+  size_t edgeIndex = startEdgeIndex;
+  do {
+    HalfEdge edge = e(edgeIndex);
+    size_t vertexIndex = e(edge.next).vert;
+    oneRing.push_back(vertexIndex);
+    edgeIndex = e(edge.prev).pair;
+  } while (edgeIndex != startEdgeIndex);
 
   return oneRing;
 }
@@ -263,7 +270,13 @@ std::vector<size_t> HalfEdgeMesh::FindNeighborFaces(size_t vertexIndex) const {
   // Collected faces, sorted counter clockwise!
   std::vector<size_t> foundFaces;
 
-  // Add your code here
+  size_t startEdgeIndex = v(vertexIndex).edge;
+  size_t edgeIndex = startEdgeIndex;
+  do {
+    HalfEdge edge = e(edgeIndex);
+    foundFaces.push_back(edge.face);
+    edgeIndex = e(edge.prev).pair;
+  } while (edgeIndex != startEdgeIndex);
   return foundFaces;
 }
 
