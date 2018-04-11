@@ -48,8 +48,7 @@ bool HalfEdgeMesh::AddFace(const std::vector<Vector3<float> > &verts) {
   e(e_ind3).prev = e_ind2;
 
   // Finally, create the face, and set the normal
-  Face tri(e_ind1);
-  mFaces.push_back(tri);
+  mFaces.push_back(Face(e_ind1));
   size_t face_index = mFaces.size() - 1;
   mFaces.back().normal = FaceNormal(face_index);
 
@@ -400,8 +399,15 @@ void HalfEdgeMesh::Update() {
 /*! \lab1 Implement the area */
 float HalfEdgeMesh::Area() const {
   float area = 0;
-  // Add code here
-  std::cerr << "Area calculation not implemented for half-edge mesh!\n";
+  for (Face face : mFaces) {
+    const EdgeIterator it = GetEdgeIterator(face.edge);
+
+    const Vector3<float> &p1 = v(it.GetEdgeVertexIndex()).pos;
+    const Vector3<float> &p2 = v(it.Next().GetEdgeVertexIndex()).pos;
+    const Vector3<float> &p3 = v(it.Next().GetEdgeVertexIndex()).pos;
+
+    area += Cross(p2 - p1, p3 - p1).Length() / 2;
+  }
   return area;
 }
 
