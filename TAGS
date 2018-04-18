@@ -107,6 +107,12 @@ Math/TrilinearInterpolator.h,105
 class TrilinearInterpolator 6,107
 protected:protected16,474
 
+Math/TrilinearInterpolator.cpp,263
+TrilinearInterpolator::TrilinearInterpolator(TrilinearInterpolator3,36
+TrilinearInterpolator::~TrilinearInterpolator(~TrilinearInterpolator5,87
+TrilinearInterpolator::Interpolate(Interpolate8,154
+float TrilinearInterpolator::Interpolate(Interpolate28,938
+
 Math/Volume.h,558
 #define __volume_h__13,544
 template <class T> class Volume 26,818
@@ -251,6 +257,47 @@ class CoordMatrix38,1235
     struct EntryComparer232,6483
       bool operator()(operator()234,6514
 
+main.cpp,157
+Console con;8,125
+class wxWidgetsApp 11,146
+DECLARE_APP(18,264
+wxWidgetsApp::~wxWidgetsApp(~wxWidgetsApp24,353
+bool wxWidgetsApp::OnInit(OnInit26,387
+
+GUI/GLViewer.cpp,1562
+const wxEventType wxEVT_GL_OBJECT_SELECTED 22,318
+GLCamera GLViewer::mCamera;24,382
+BEGIN_EVENT_TABLE(26,411
+GLViewer::GLViewer(43,958
+void GLViewer::InitGL(InitGL50,1181
+void GLViewer::SetupView(SetupView93,2496
+void GLViewer::Resized(Resized102,2766
+int GLViewer::GetWidth(GetWidth111,2909
+int GLViewer::GetHeight(GetHeight113,2959
+void GLViewer::OnPaint(OnPaint115,3010
+void GLViewer::Render(Render117,3069
+void GLViewer::ScreenCapture(ScreenCapture155,3816
+bool GLViewer::AddObject(AddObject176,4241
+GLObject *GLViewer::GetObject(GetObject195,4784
+GLObject *GLViewer::GetObject(GetObject207,5075
+std::list<GLObject *> GLViewer::GetObjects(GetObjects218,5289
+GLObject *GLViewer::RemoveObject(RemoveObject220,5356
+GLObject *GLViewer::RemoveObject(RemoveObject235,5714
+void GLViewer::MoveObject(MoveObject248,5982
+void GLViewer::ReplaceObject(ReplaceObject273,6588
+std::list<GLObject *> GLViewer::GetSelectedObjects(GetSelectedObjects283,6870
+void GLViewer::DeselectAllObjects(DeselectAllObjects298,7212
+void GLViewer::DeselectObject(DeselectObject307,7435
+void GLViewer::SelectObject(SelectObject316,7653
+GLObject *GLViewer::PickObject(PickObject329,7982
+void GLViewer::MouseMoved(MouseMoved400,9813
+void GLViewer::MouseDown(MouseDown469,11696
+void GLViewer::MouseWheelMoved(MouseWheelMoved474,11851
+void GLViewer::MouseReleased(MouseReleased480,12007
+void GLViewer::RightClick(RightClick509,12840
+void GLViewer::MouseLeftWindow(MouseLeftWindow511,12891
+void GLViewer::KeyPressed(KeyPressed514,13010
+
 GUI/ScalarCutPlane.h,351
 #define __scalar_cutplane_h__13,553
 class ScalarCutPlane 19,672
@@ -262,6 +309,22 @@ class ScalarCutPlane 19,672
   virtual const char *GetTypeName(GetTypeName31,938
   virtual void Initialize(35,1043
   virtual void SetColorMap(41,1166
+
+GUI/ScalarCutPlane.cpp,182
+ScalarCutPlane::ScalarCutPlane(20,637
+void ScalarCutPlane::Render(Render27,853
+void ScalarCutPlane::SetTransform(SetTransform69,1769
+void ScalarCutPlane::Update(Update74,1892
+
+GUI/VectorCutPlane.cpp,182
+VectorCutPlane::VectorCutPlane(15,553
+void VectorCutPlane::Render(Render22,763
+void VectorCutPlane::SetTransform(SetTransform68,1806
+void VectorCutPlane::Update(Update73,1929
+
+GUI/GLObject.cpp,82
+void GLObject::Render(Render5,44
+void GLObject::CheckGLError(CheckGLError7,89
 
 GUI/FrameMain.h,865
 #define __FrameMain__2,22
@@ -338,6 +401,13 @@ class FluidVoxelCutPlane 11,208
   float mDx;30,616
   std::vector<bool> mFluidVoxels;32,630
   std::vector<Vector3<float>> mFluidVoxelsPositions;33,664
+
+GUI/GLAxis.cpp,81
+void GLAxis::Render(Render4,22
+void GLAxis::PickChildren(PickChildren53,1052
+
+GUI/GLGridPlane.cpp,38
+void GLGridPlane::Render(Render4,27
 
 GUI/GUI.h,7551
 #define __GUI__9,303
@@ -512,6 +582,91 @@ class VectorCutPlane 21,716
   virtual const char *GetTypeName(GetTypeName32,993
   virtual void Initialize(36,1098
 
+GUI/FrameMain.cpp,4935
+FrameMain::FrameMain(3,24
+void FrameMain::AddUniqueObject(AddUniqueObject75,3151
+void FrameMain::RemoveObject(RemoveObject87,3476
+void FrameMain::DeleteObjects(DeleteObjects93,3678
+void FrameMain::DeleteDependentObjects(DeleteDependentObjects106,4021
+void FrameMain::UpdateDependentObjects(UpdateDependentObjects120,4471
+void FrameMain::ObjectSelected(ObjectSelected132,4911
+void FrameMain::SelectObjects(SelectObjects149,5456
+void FrameMain::MoveObjectsUp(MoveObjectsUp158,5762
+void FrameMain::MoveObjecsDown(MoveObjecsDown177,6315
+void FrameMain::TextCtrlFocus(TextCtrlFocus196,6915
+void FrameMain::TransformObjects(TransformObjects201,7074
+void FrameMain::VisualizeWireframe(VisualizeWireframe248,8601
+void FrameMain::VisualizeMeshNormals(VisualizeMeshNormals260,8956
+void FrameMain::OpacityChanged(OpacityChanged272,9315
+void FrameMain::SetColormap(SetColormap284,9669
+void FrameMain::SetVisualizationMode(SetVisualizationMode317,10598
+void FrameMain::ScaleChanged(ScaleChanged336,11246
+void FrameMain::ToggleUniformScaling(ToggleUniformScaling343,11433
+void FrameMain::ToggleAutoMinMax(ToggleAutoMinMax348,11598
+void FrameMain::SaveMesh(SaveMesh353,11745
+void FrameMain::CaptureScreen(CaptureScreen386,12779
+void FrameMain::Dilate(Dilate413,13756
+void FrameMain::Erode(Erode432,14366
+void FrameMain::Smooth(Smooth451,14974
+double FrameMain::GetAmount(GetAmount470,15584
+void FrameMain::HideAllPanels(HideAllPanels480,15754
+void FrameMain::UpdatePanels(UpdatePanels492,16012
+void FrameMain::AddObjectSimpleMesh(AddObjectSimpleMesh536,17473
+void FrameMain::AddObjectHalfEdgeMesh(AddObjectHalfEdgeMesh547,17741
+void FrameMain::AddObjectSimpleDecimationMesh(AddObjectSimpleDecimationMesh561,18041
+void FrameMain::AddObjectQuadricDecimationMesh(AddObjectQuadricDecimationMesh571,18328
+void FrameMain::DecimateObjects(DecimateObjects581,18617
+void FrameMain::AddObjectCubicSpline(AddObjectCubicSpline612,19550
+void FrameMain::AddObjectSubdivisionCurve(AddObjectSubdivisionCurve630,20224
+void FrameMain::AddObjectLoopSubdivisionMesh(AddObjectLoopSubdivisionMesh648,20907
+void FrameMain::AddObjectStrangeSubdivisionMesh(AddObjectStrangeSubdivisionMesh658,21192
+void FrameMain::SubdivideObjects(SubdivideObjects668,21483
+void FrameMain::AddObjectImplicitSphere(AddObjectImplicitSphere693,22161
+void FrameMain::AddObjectImplicitMesh(AddObjectImplicitMesh706,22560
+void FrameMain::AddObjectQuadricPlane(AddObjectQuadricPlane741,23690
+void FrameMain::AddObjectQuadricCylinder(AddObjectQuadricCylinder755,24075
+void FrameMain::AddObjectQuadricEllipsoid(AddObjectQuadricEllipsoid769,24466
+void FrameMain::AddObjectQuadricCone(AddObjectQuadricCone783,24859
+void FrameMain::AddObjectQuadricParaboloid(AddObjectQuadricParaboloid797,25242
+void FrameMain::AddObjectQuadricHyperboloid(AddObjectQuadricHyperboloid811,25637
+void FrameMain::AddObjectScalarCutPlane(AddObjectScalarCutPlane825,26034
+void FrameMain::AddObjectVectorCutPlane(AddObjectVectorCutPlane857,27042
+void FrameMain::Union(Union889,28054
+void FrameMain::Intersection(Intersection899,28383
+void FrameMain::Difference(Difference909,28733
+void FrameMain::SwitchBlending(SwitchBlending919,29077
+void FrameMain::ResampleImplicit(ResampleImplicit924,29224
+void FrameMain::DifferentialScaleChanged(DifferentialScaleChanged940,29723
+double FrameMain::GetMeshSampling(GetMeshSampling955,30200
+double FrameMain::GetDifferentialScale(GetDifferentialScale965,30402
+void FrameMain::LoadLevelset(LoadLevelset976,30581
+void FrameMain::ConvertToLevelset(ConvertToLevelset1012,31654
+void FrameMain::AddTemplate1(AddTemplate11047,32742
+void FrameMain::AddTemplate2(AddTemplate21090,33870
+void FrameMain::AddTemplate3(AddTemplate31092,33926
+void FrameMain::LevelsetReinitialize(LevelsetReinitialize1094,33982
+void FrameMain::LevelsetAdvect(LevelsetAdvect1127,35058
+void FrameMain::LevelsetDilate(LevelsetDilate1152,35878
+void FrameMain::LevelsetErode(LevelsetErode1175,36603
+void FrameMain::LevelsetSmooth(LevelsetSmooth1198,37328
+void FrameMain::LevelsetMorph(LevelsetMorph1221,38059
+void FrameMain::EnableNarrowband(EnableNarrowband1273,39514
+double FrameMain::GetPropagationTime(GetPropagationTime1295,40143
+long int FrameMain::GetIterations(GetIterations1305,40338
+void FrameMain::InitializeFluidSolver(InitializeFluidSolver1319,40583
+void FrameMain::FluidSetSolid(FluidSetSolid1327,40811
+void FrameMain::FluidSetFluid(FluidSetFluid1342,41232
+void FrameMain::FluidSolve(FluidSolve1357,41647
+void FrameMain::FluidVisualizeVelocities(FluidVisualizeVelocities1439,44276
+void FrameMain::FluidVisualizeVoxelsClassification(FluidVisualizeVoxelsClassification1462,44927
+void FrameMain::PlaySimulation(PlaySimulation1484,45632
+void FrameMain::SaveSimulationFrames(SaveSimulationFrames1500,46086
+void FrameMain::FluidPlayback(FluidPlayback1529,46946
+
+GUI/GUI.cpp,94
+BaseFrameMain::BaseFrameMain(12,382
+BaseFrameMain::~BaseFrameMain(~BaseFrameMain1097,46560
+
 GUI/GLViewer.h,394
 #define _GL_VIEWER_H3,22
 class GLViewer 15,220
@@ -524,6 +679,12 @@ class GLViewer 15,220
   GLuint mSelectBuffer[mSelectBuffer55,1259
   bool mIsInitialized;60,1366
   void OnEraseBackground(70,1691
+
+GUI/FluidVoxelCutPlane.cpp,199
+FluidVoxelCutPlane::FluidVoxelCutPlane(3,33
+void FluidVoxelCutPlane::SetTransform(SetTransform14,359
+void FluidVoxelCutPlane::Render(Render19,486
+void FluidVoxelCutPlane::Update(Update82,1854
 
 GUI/GLObject.h,1633
 #define _GL_OBJECT4,33
@@ -574,6 +735,22 @@ class GLObject 19,240
   void RenderString(128,3118
   static VisualizationMode NewVisualizationMode(137,3363
 
+Decimation/SimpleDecimationMesh.cpp,67
+void SimpleDecimationMesh::computeCollapse(computeCollapse14,560
+
+Decimation/DecimationMesh.cpp,630
+const DecimationMesh::VisualizationMode DecimationMesh::CollapseCost 17,634
+void DecimationMesh::Initialize(Initialize20,749
+void DecimationMesh::Update(Update64,2069
+bool DecimationMesh::decimate(decimate145,4962
+bool DecimationMesh::decimate(decimate161,5555
+void DecimationMesh::updateVertexProperties(updateVertexProperties301,10073
+void DecimationMesh::updateFaceProperties(updateFaceProperties334,10904
+bool DecimationMesh::isValidCollapse(isValidCollapse354,11383
+void DecimationMesh::Cleanup(Cleanup389,12353
+void DecimationMesh::Render(Render394,12434
+void DecimationMesh::drawText(drawText568,17432
+
 Decimation/DecimationMesh.h,986
 #define _DECIMATION_MESH13,552
 class DecimationMesh 20,708
@@ -621,6 +798,15 @@ class QuadricDecimationMesh 25,756
   QuadricDecimationMesh(35,1079
   virtual ~QuadricDecimationMesh(36,1108
   std::vector<Matrix4x4<float>> mQuadrics;54,1751
+
+Decimation/QuadricDecimationMesh.cpp,463
+    QuadricDecimationMesh::QuadricIsoSurfaces 15,606
+void QuadricDecimationMesh::Initialize(Initialize18,709
+void QuadricDecimationMesh::computeCollapse(computeCollapse48,1730
+void QuadricDecimationMesh::updateVertexProperties(updateVertexProperties56,2060
+QuadricDecimationMesh::createQuadricForVert(createQuadricForVert65,2312
+QuadricDecimationMesh::createQuadricForFace(createQuadricForFace78,2706
+void QuadricDecimationMesh::Render(Render85,2932
 
 Levelset/OperatorMorph.h,237
 #define __operatormorph_h__13,551
@@ -728,6 +914,11 @@ class OperatorReinitialize 28,977
   virtual float Evaluate(65,1974
   float MaxNormGradient(85,2753
 
+Levelset/LevelSetOperator.cpp,182
+void LevelSetOperator::Godunov(Godunov32,1168
+void LevelSetOperator::IntegrateEuler(IntegrateEuler58,2268
+void LevelSetOperator::IntegrateRungeKutta(IntegrateRungeKutta83,2968
+
 Levelset/OperatorAdvect.h,265
 #define __operatoradvect_h__13,556
 class OperatorAdvect 29,996
@@ -736,6 +927,44 @@ class OperatorAdvect 29,996
   virtual float ComputeTimestep(37,1223
   virtual void Propagate(43,1363
   virtual float Evaluate(60,1768
+
+Levelset/LevelSetGrid.cpp,200
+LevelSetGrid::Iterator::Iterator(Iterator16,578
+void LevelSetGrid::Dilate(Dilate38,1141
+void LevelSetGrid::Rebuild(Rebuild64,1818
+Vector3<int> LevelSetGrid::GetDimensions(GetDimensions85,2428
+
+Levelset/LevelSet.cpp,1360
+const LevelSet::VisualizationMode LevelSet::NarrowBand 16,574
+LevelSet::LevelSet(19,672
+LevelSet::LevelSet(21,715
+LevelSet::LevelSet(44,1528
+LevelSet::LevelSet(61,2114
+float LevelSet::GetValue(GetValue78,2656
+Vector3<float> LevelSet::GetGradient(GetGradient127,4045
+float LevelSet::GetCurvature(GetCurvature134,4246
+void LevelSet::SetBoundingBox(SetBoundingBox138,4355
+void LevelSet::SetNarrowBandWidth(SetNarrowBandWidth207,6458
+int LevelSet::GetNarrowBandWidth(GetNarrowBandWidth213,6623
+float LevelSet::DiffXm(DiffXm222,6976
+float LevelSet::DiffXp(DiffXp228,7251
+float LevelSet::DiffXpm(DiffXpm234,7526
+float LevelSet::Diff2Xpm(Diff2Xpm240,7802
+float LevelSet::DiffYm(DiffYm246,8079
+float LevelSet::DiffYp(DiffYp252,8354
+float LevelSet::DiffYpm(DiffYpm258,8629
+float LevelSet::Diff2Ypm(Diff2Ypm264,8905
+float LevelSet::DiffZm(DiffZm270,9182
+float LevelSet::DiffZp(DiffZp276,9457
+float LevelSet::DiffZpm(DiffZpm282,9732
+float LevelSet::Diff2Zpm(Diff2Zpm288,10008
+float LevelSet::Diff2XYpm(Diff2XYpm294,10285
+float LevelSet::Diff2YZpm(Diff2YZpm300,10563
+float LevelSet::Diff2ZXpm(Diff2ZXpm306,10841
+float LevelSet::WENO(WENO308,10918
+void LevelSet::Render(Render312,11012
+void LevelSet::TransformWorldToGrid(TransformWorldToGrid345,11851
+void LevelSet::TransformGridToWorld(TransformGridToWorld352,12049
 
 Levelset/LevelSetOperator.h,338
 #define __levelset_operator_h__13,559
@@ -756,212 +985,6 @@ class OperatorDilateErode 27,983
   virtual float ComputeTimestep(35,1182
   virtual void Propagate(40,1281
   virtual float Evaluate(58,1756
-
-build/CMakeFiles/feature_tests.c,53
-  const char features[features2,1
-int main(34,617
-
-build/CMakeFiles/3.10.2/CompilerIdC/CMakeCCompilerId.c,7469
-# define ID_VOID_MAIN6,98
-# define const10,197
-# define volatile11,212
-# define COMPILER_ID 19,413
-#  define SIMULATE_ID 21,465
-# define COMPILER_VERSION_MAJOR 24,533
-# define COMPILER_VERSION_MINOR 25,591
-#  define COMPILER_VERSION_PATCH 27,691
-#  define COMPILER_VERSION_PATCH 29,760
-#  define COMPILER_VERSION_TWEAK 33,919
-#  define SIMULATE_VERSION_MAJOR 37,1041
-#  define SIMULATE_VERSION_MINOR 38,1094
-# define COMPILER_ID 42,1182
-# define COMPILER_VERSION_MAJOR 43,1215
-# define COMPILER_VERSION_MINOR 44,1263
-#  define COMPILER_VERSION_PATCH 46,1353
-# define COMPILER_ID 50,1484
-# define COMPILER_VERSION_MAJOR 51,1519
-# define COMPILER_VERSION_MINOR 52,1591
-# define COMPILER_VERSION_PATCH 53,1663
-# define COMPILER_ID 56,1764
-# define COMPILER_VERSION_MAJOR 58,1824
-# define COMPILER_VERSION_MINOR 59,1877
-# define COMPILER_ID 62,1984
-# define COMPILER_VERSION_MAJOR 64,2042
-# define COMPILER_VERSION_MINOR 65,2097
-#  define COMPILER_VERSION_PATCH 67,2186
-# define COMPILER_ID 71,2277
-# define COMPILER_VERSION_MAJOR 73,2346
-# define COMPILER_VERSION_MINOR 74,2410
-#  define COMPILER_VERSION_PATCH 76,2499
-# define COMPILER_ID 80,2589
-#  define COMPILER_VERSION_MAJOR 83,2674
-#  define COMPILER_VERSION_MINOR 84,2727
-#  define COMPILER_VERSION_PATCH 85,2786
-#  define COMPILER_VERSION_MAJOR 88,2880
-#  define COMPILER_VERSION_MINOR 89,2932
-#  define COMPILER_VERSION_PATCH 90,2990
-# define COMPILER_ID 94,3080
-# define COMPILER_VERSION_MAJOR 96,3131
-# define COMPILER_VERSION_MINOR 97,3182
-# define COMPILER_VERSION_PATCH 98,3237
-# define COMPILER_ID 101,3315
-# define COMPILER_VERSION_MAJOR 103,3376
-# define COMPILER_VERSION_MINOR 104,3433
-# define COMPILER_VERSION_PATCH 105,3495
-# define COMPILER_ID 108,3613
-# define COMPILER_VERSION_MAJOR 110,3663
-# define COMPILER_VERSION_MINOR 111,3713
-# define COMPILER_VERSION_PATCH 112,3767
-# define COMPILER_ID 115,3895
-# define COMPILER_VERSION_MAJOR 117,3944
-# define COMPILER_VERSION_MINOR 118,3994
-# define COMPILER_VERSION_PATCH 119,4048
-# define COMPILER_ID 122,4175
-# define COMPILER_VERSION_MAJOR 124,4231
-# define COMPILER_VERSION_MINOR 125,4281
-# define COMPILER_VERSION_PATCH 126,4335
-# define COMPILER_ID 129,4411
-# define COMPILER_VERSION_MAJOR 130,4438
-# define COMPILER_VERSION_MINOR 131,4484
-#  define COMPILER_VERSION_PATCH 133,4570
-# define COMPILER_ID 137,4659
-# define COMPILER_VERSION_MAJOR 138,4687
-# define COMPILER_VERSION_MINOR 139,4739
-# define COMPILER_ID 142,4831
-# define COMPILER_VERSION_MAJOR 144,4901
-# define COMPILER_VERSION_MINOR 145,4970
-# define COMPILER_VERSION_PATCH 146,5045
-# define COMPILER_ID 149,5198
-# define COMPILER_ID 152,5255
-# define COMPILER_ID 155,5309
-# define COMPILER_ID 158,5370
-# define COMPILER_ID 161,5459
-#  define SIMULATE_ID 163,5516
-# define COMPILER_VERSION_MAJOR 165,5553
-# define COMPILER_VERSION_MINOR 166,5606
-# define COMPILER_VERSION_PATCH 167,5659
-#  define SIMULATE_VERSION_MAJOR 170,5765
-#  define SIMULATE_VERSION_MINOR 171,5818
-# define COMPILER_VERSION_TWEAK 173,5879
-# define COMPILER_ID 176,5966
-#  define SIMULATE_ID 178,6018
-# define COMPILER_VERSION_MAJOR 180,6055
-# define COMPILER_VERSION_MINOR 181,6108
-# define COMPILER_VERSION_PATCH 182,6161
-#  define SIMULATE_VERSION_MAJOR 185,6267
-#  define SIMULATE_VERSION_MINOR 186,6320
-# define COMPILER_ID 190,6406
-# define COMPILER_VERSION_MAJOR 191,6433
-#  define COMPILER_VERSION_MINOR 193,6508
-#  define COMPILER_VERSION_PATCH 196,6603
-# define COMPILER_ID 200,6694
-# define COMPILER_VERSION_MAJOR 202,6746
-# define COMPILER_VERSION_MINOR 203,6798
-#   define COMPILER_VERSION_PATCH 207,6937
-#   define COMPILER_VERSION_PATCH 210,7042
-#  define COMPILER_VERSION_TWEAK 214,7145
-# define COMPILER_ID 218,7317
-# define COMPILER_VERSION_MAJOR 221,7421
-# define COMPILER_VERSION_MINOR 222,7483
-# define COMPILER_VERSION_PATCH 223,7552
-# define COMPILER_ID 227,7694
-#  define COMPILER_VERSION_MAJOR 229,7743
-#  define COMPILER_VERSION_MINOR 230,7801
-#  define COMPILER_VERSION_PATCH 231,7865
-#  define COMPILER_VERSION_INTERNAL 232,7920
-# define COMPILER_ID 236,8021
-  # define COMPILER_VERSION_MAJOR 239,8115
-  # define COMPILER_VERSION_MINOR 240,8178
-  # define COMPILER_VERSION_PATCH 241,8245
-  # define COMPILER_VERSION_MAJOR 244,8351
-  # define COMPILER_VERSION_MINOR 245,8413
-  # define COMPILER_VERSION_PATCH 246,8479
-# define COMPILER_ID 251,8607
-#  define COMPILER_VERSION_MAJOR 253,8670
-#  define COMPILER_VERSION_MINOR 254,8729
-#  define COMPILER_VERSION_PATCH 255,8788
-#  define COMPILER_VERSION_MAJOR 258,8873
-#  define COMPILER_VERSION_MINOR 259,8920
-#  define COMPILER_VERSION_PATCH 260,8971
-# define COMPILER_ID 264,9098
-#  define COMPILER_VERSION_MAJOR 267,9201
-#  define COMPILER_VERSION_MINOR 268,9265
-#  define COMPILER_VERSION_PATCH 269,9333
-#  define COMPILER_VERSION_MAJOR 272,9440
-#  define COMPILER_VERSION_MINOR 273,9500
-#  define COMPILER_VERSION_PATCH 274,9564
-# define COMPILER_ID 282,9825
-# define COMPILER_ID 285,9898
-# define COMPILER_ID 288,9954
-char const* info_compiler 295,10252
-char const* info_simulate 297,10339
-char const* qnxnto 301,10433
-char const *info_cray info_cray305,10528
-#define STRINGIFY_HELPER(308,10603
-#define STRINGIFY(309,10634
-# define PLATFORM_ID 313,10778
-# define PLATFORM_ID 316,10834
-# define PLATFORM_ID 319,10892
-# define PLATFORM_ID 322,10947
-# define PLATFORM_ID 325,11040
-# define PLATFORM_ID 328,11121
-# define PLATFORM_ID 331,11200
-# define PLATFORM_ID 334,11280
-# define PLATFORM_ID 337,11349
-# define PLATFORM_ID 340,11475
-# define PLATFORM_ID 343,11561
-# define PLATFORM_ID 346,11633
-# define PLATFORM_ID 349,11688
-# define PLATFORM_ID 352,11779
-# define PLATFORM_ID 355,11854
-# define PLATFORM_ID 358,11946
-# define PLATFORM_ID 361,12023
-# define PLATFORM_ID 364,12121
-# define PLATFORM_ID 367,12178
-# define PLATFORM_ID 370,12235
-# define PLATFORM_ID 373,12305
-# define PLATFORM_ID 376,12377
-# define PLATFORM_ID 379,12467
-# define PLATFORM_ID 382,12565
-# define PLATFORM_ID 385,12658
-#  define PLATFORM_ID 389,12739
-#  define PLATFORM_ID 392,12794
-#  define PLATFORM_ID 395,12847
-#  define PLATFORM_ID 398,12904
-#  define PLATFORM_ID401,12969
-# define PLATFORM_ID405,13029
-#  define ARCHITECTURE_ID 416,13369
-#  define ARCHITECTURE_ID 419,13447
-#  define ARCHITECTURE_ID 422,13504
-#  define ARCHITECTURE_ID 425,13562
-#   define ARCHITECTURE_ID 429,13638
-#   define ARCHITECTURE_ID 431,13694
-#   define ARCHITECTURE_ID 433,13738
-#  define ARCHITECTURE_ID 437,13824
-#  define ARCHITECTURE_ID 440,13880
-#  define ARCHITECTURE_ID 443,13947
-#  define ARCHITECTURE_ID 448,14033
-#  define ARCHITECTURE_ID 451,14090
-#  define ARCHITECTURE_ID 454,14157
-#  define ARCHITECTURE_ID 459,14285
-#  define ARCHITECTURE_ID 462,14345
-#  define ARCHITECTURE_ID 465,14412
-#  define ARCHITECTURE_ID468,14455
-#define DEC(472,14539
-#define HEX(483,14888
-char const info_version[info_version495,15250
-char const info_version_internal[info_version_internal513,15748
-char const info_simulate_version[info_simulate_version522,16074
-char const* info_platform 542,16743
-char const* info_arch 543,16811
-#  define C_DIALECT 550,16948
-#  define C_DIALECT552,16980
-# define C_DIALECT 555,17042
-# define C_DIALECT 557,17100
-# define C_DIALECT 559,17130
-const char* info_language_dialect_default 561,17161
-void main(567,17353
-int main(570,17402
 
 VC++/glew/include/GL/glext.h,392668
 #define __glext_h_ 2,19
@@ -25818,6 +25841,39 @@ VC++/wxWidgets/include/wx/wave.h,67
 #define _WX_WAVE_H_BASE_13,421
     typedef wxSound wxWave;29,952
 
+VC++/wxWidgets/include/wx/thrimpl.cpp,1397
+wxMutex::wxMutex(wxMutex18,703
+wxMutex::~wxMutex(~wxMutex29,895
+bool wxMutex::IsOk(IsOk34,943
+wxMutexError wxMutex::Lock(Lock39,1006
+wxMutexError wxMutex::TryLock(TryLock47,1178
+wxMutexError wxMutex::Unlock(Unlock55,1359
+class wxConditionInternal73,2015
+    bool IsOk(78,2093
+    LONG m_numWaiters;88,2378
+    wxCriticalSection m_csWaiters;91,2454
+    wxMutex& m_mutex;93,2490
+    wxSemaphore m_semaphore;94,2512
+wxConditionInternal::wxConditionInternal(99,2593
+wxCondError wxConditionInternal::Wait(Wait107,2835
+wxCondError wxConditionInternal::WaitTimeout(WaitTimeout140,3707
+wxCondError wxConditionInternal::Signal(Signal187,5032
+wxCondError wxConditionInternal::Broadcast(Broadcast203,5352
+wxCondition::wxCondition(wxCondition224,5836
+wxCondition::~wxCondition(~wxCondition235,6029
+bool wxCondition::IsOk(IsOk240,6085
+wxCondError wxCondition::Wait(Wait245,6152
+wxCondError wxCondition::WaitTimeout(WaitTimeout253,6330
+wxCondError wxCondition::Signal(Signal261,6560
+wxCondError wxCondition::Broadcast(Broadcast269,6744
+wxSemaphore::wxSemaphore(wxSemaphore281,7109
+wxSemaphore::~wxSemaphore(~wxSemaphore291,7336
+bool wxSemaphore::IsOk(IsOk296,7392
+wxSemaError wxSemaphore::Wait(Wait301,7459
+wxSemaError wxSemaphore::TryWait(TryWait309,7637
+wxSemaError wxSemaphore::WaitTimeout(WaitTimeout317,7824
+wxSemaError wxSemaphore::Post(Post325,8061
+
 VC++/wxWidgets/include/wx/motif/gauge.h,82
 #define _WX_GAUGE_H_13,399
 class WXDLLEXPORT wxGauge : public wxGaugeBase16,434
@@ -31268,6 +31324,13 @@ class WXDLLEXPORT wxAnimationDecoder : public wxObjectRefData87,2842
 VC++/wxWidgets/include/wx/imagiff.h,94
 #define _WX_IMAGE_IFF_H_11,390
 class WXDLLEXPORT wxIFFHandler : public wxImageHandler21,646
+
+VC++/wxWidgets/include/wx/listimpl.cpp,165
+#undef  WX_DEFINE_LIST14,442
+#define WX_DEFINE_LIST(15,465
+    #define _DEFINE_LIST(24,927
+    #undef  WX_DEFINE_LIST32,1275
+    #define WX_DEFINE_LIST(33,1302
 
 VC++/wxWidgets/include/wx/dcbuffer.h,699
 #define _WX_DCBUFFER_H_13,461
@@ -49308,6 +49371,13 @@ class WXDLLIMPEXP_ADV wxSoundBase : public wxObject38,1252
 inline bool wxSoundBase::Play(Play80,2555
 inline bool wxSoundBase::Play(Play87,2736
 
+VC++/wxWidgets/include/wx/arrimpl.cpp,175
+#define _WX_ERROR_REMOVE2(25,1320
+#undef  _DEFINE_OBJARRAY29,1502
+#define _DEFINE_OBJARRAY(30,1527
+#undef  WX_DEFINE_OBJARRAY119,8483
+#define WX_DEFINE_OBJARRAY(120,8510
+
 VC++/wxWidgets/include/wx/radiobox.h,81
 #define _WX_RADIOBOX_H_BASE_13,419
 class WXDLLIMPEXP_FWD_CORE wxToolTip;23,540
@@ -50200,6 +50270,25 @@ class Mesh 20,666
   virtual void SetVisualizationMode(108,3539
   virtual const char *GetTypeName(GetTypeName113,3669
 
+Geometry/SimpleMesh.cpp,868
+SimpleMesh::SimpleMesh(SimpleMesh16,664
+SimpleMesh::~SimpleMesh(~SimpleMesh19,773
+bool SimpleMesh::AddFace(AddFace22,883
+bool SimpleMesh::AddVertex(AddVertex38,1321
+Vector3<float> SimpleMesh::FaceNormal(FaceNormal56,1879
+Vector3<float> SimpleMesh::VertexNormal(VertexNormal63,2241
+float SimpleMesh::VertexCurvature(VertexCurvature80,2762
+float SimpleMesh::FaceCurvature(FaceCurvature110,3714
+std::vector<size_t> SimpleMesh::FindNeighborVertices(FindNeighborVertices122,4223
+std::vector<size_t> SimpleMesh::FindNeighborFaces(FindNeighborFaces153,5516
+void SimpleMesh::Initialize(Initialize209,7290
+void SimpleMesh::Update(Update235,8120
+size_t SimpleMesh::Genus(Genus291,10164
+void SimpleMesh::Dilate(Dilate308,10747
+void SimpleMesh::Erode(Erode320,11012
+void SimpleMesh::Smooth(Smooth332,11276
+void SimpleMesh::Render(Render344,11561
+
 Geometry/ImplicitMesh.h,257
 #define __implicitmesh_h__13,554
 class ImplicitMesh 30,836
@@ -50208,6 +50297,10 @@ class ImplicitMesh 30,836
   SimpleMesh *mSourceMesh;mSourceMesh53,1406
   Volume<float> *mData;mData54,1433
   static std::pair<std::pair61,1711
+
+Geometry/LineStrip.cpp,65
+LineStrip::LineStrip(4,25
+void LineStrip::Render(Render12,233
 
 Geometry/Bbox.h,222
 #define __bbox_h__13,544
@@ -50252,6 +50345,11 @@ Geometry/Quadric.h,88
 class Quadric 18,636
   Matrix4x4<float> mQuadric;30,1070
 
+Geometry/SignedDistanceSphere.cpp,200
+SignedDistanceSphere::SignedDistanceSphere(SignedDistanceSphere14,560
+SignedDistanceSphere::~SignedDistanceSphere(~SignedDistanceSphere19,711
+float SignedDistanceSphere::getValue(getValue21,761
+
 Geometry/ImplicitGradientField.h,288
 #define __implicit_gradient_field_h__13,565
 class ImplicitGradientField 19,691
@@ -50286,17 +50384,73 @@ class SimpleMesh 41,1052
   std::vector<Face> &GetFaces(GetFaces96,2742
   virtual bool save(106,2956
 
+Geometry/HalfEdgeMesh.cpp,1300
+const size_t HalfEdgeMesh::BORDER 14,563
+const size_t HalfEdgeMesh::UNINITIALIZED 15,637
+HalfEdgeMesh::HalfEdgeMesh(HalfEdgeMesh18,727
+HalfEdgeMesh::~HalfEdgeMesh(~HalfEdgeMesh20,760
+bool HalfEdgeMesh::AddFace(AddFace28,963
+bool HalfEdgeMesh::AddVertex(AddVertex71,2304
+bool HalfEdgeMesh::AddHalfEdgePair(AddHalfEdgePair96,3307
+void HalfEdgeMesh::MergeOuterBoundaryEdge(MergeOuterBoundaryEdge144,4628
+void HalfEdgeMesh::Validate(Validate159,5246
+HalfEdgeMesh::FindNeighborVertices(FindNeighborVertices247,8819
+std::vector<size_t> HalfEdgeMesh::FindNeighborFaces(FindNeighborFaces268,9537
+float HalfEdgeMesh::VertexCurvature(VertexCurvature283,9999
+float HalfEdgeMesh::FaceCurvature(FaceCurvature288,10143
+Vector3<float> HalfEdgeMesh::FaceNormal(FaceNormal300,10564
+Vector3<float> HalfEdgeMesh::VertexNormal(VertexNormal313,11026
+void HalfEdgeMesh::Initialize(Initialize323,11376
+void HalfEdgeMesh::Update(Update328,11439
+float HalfEdgeMesh::Area(Area400,13974
+float HalfEdgeMesh::Volume(Volume415,14423
+int HalfEdgeMesh::Shells(Shells423,14639
+size_t HalfEdgeMesh::Genus(Genus426,14720
+void HalfEdgeMesh::Dilate(Dilate432,14865
+void HalfEdgeMesh::Erode(Erode444,15132
+void HalfEdgeMesh::Smooth(Smooth456,15398
+void HalfEdgeMesh::Render(Render468,15685
+
+Geometry/Sphere.cpp,95
+Sphere::Sphere(14,546
+Sphere::~Sphere(~Sphere20,742
+float Sphere::GetValue(GetValue22,764
+
+Geometry/Quadric.cpp,166
+Quadric::Quadric(Quadric14,549
+Quadric::~Quadric(~Quadric16,618
+float Quadric::GetValue(GetValue23,876
+Vector3<float> Quadric::GetGradient(GetGradient28,1008
+
+Geometry/SphereFractal.cpp,211
+SphereFractal::SphereFractal(SphereFractal4,47
+SphereFractal::~SphereFractal(~SphereFractal78,1659
+Implicit *SphereFractal::buildFractal(buildFractal84,1773
+float SphereFractal::GetValue(GetValue94,1970
+
 Geometry/Cube.h,116
 #define __CUBE_H__2,19
 class Cube 7,88
   std::vector<Quadric *> mPlanes;15,218
   bool mEuclideanDistance;16,252
 
+Geometry/ImplicitMesh.cpp,277
+ImplicitMesh::ImplicitMesh(16,666
+ImplicitMesh::~ImplicitMesh(~ImplicitMesh45,1824
+void ImplicitMesh::Initialize(Initialize55,2075
+float ImplicitMesh::DistanceToPoint(DistanceToPoint123,4197
+std::pair<float, bool> ImplicitMesh::DistanceSquared(DistanceSquared167,5944
+
 Geometry/SphereFractal.h,143
 #define __SPHERE_FRACTAL_H__2,29
 class SphereFractal 13,288
   std::vector<Implicit *> mSpheres;27,658
   Implicit *mFractal;mFractal28,694
+
+Geometry/Cube.cpp,88
+Cube::Cube(Cube3,19
+Cube::~Cube(~Cube70,1537
+float Cube::GetValue(GetValue76,1631
 
 Geometry/LineStrip.h,348
 #define __line_strip_h__13,552
@@ -50365,29 +50519,29 @@ class HalfEdgeMesh 26,865
     size_t edge;143,4248
   struct Face 148,4357
     Face(149,4393
-    size_t edge;150,4429
-  std::vector<HalfEdge> mEdges;154,4503
-  std::vector<Vertex> mVerts;156,4566
-  std::vector<Face> mFaces;158,4624
-  std::map<std::map161,4726
-  std::map<Vector3<float>, size_t> mUniqueVerts;161,4726
-  struct OrderedPair 163,4776
-    size_t p1,164,4799
-    size_t p1, p2;164,4799
-    OrderedPair(165,4818
-    bool operator<(169,4922
-  std::map<std::map181,5239
-  std::map<OrderedPair, size_t> mUniqueEdgePairs;181,5239
-  HalfEdge &e(e199,5955
-  const HalfEdge &e(e200,6004
-  Face &f(f202,6098
-  const Face &f(f203,6143
-  Vertex &v(v205,6235
-  const Vertex v(206,6282
-  size_t GetNumVerts(208,6372
-  size_t GetNumFaces(210,6456
-  size_t GetNumEdges(212,6540
-  virtual bool save(218,6707
+    size_t edge;150,4431
+  std::vector<HalfEdge> mEdges;154,4505
+  std::vector<Vertex> mVerts;156,4568
+  std::vector<Face> mFaces;158,4626
+  std::map<std::map161,4728
+  std::map<Vector3<float>, size_t> mUniqueVerts;161,4728
+  struct OrderedPair 163,4778
+    size_t p1,164,4801
+    size_t p1, p2;164,4801
+    OrderedPair(165,4820
+    bool operator<(169,4924
+  std::map<std::map181,5241
+  std::map<OrderedPair, size_t> mUniqueEdgePairs;181,5241
+  HalfEdge &e(e199,5957
+  const HalfEdge &e(e200,6006
+  Face &f(f202,6100
+  const Face &f(f203,6145
+  Vertex &v(v205,6237
+  const Vertex v(206,6284
+  size_t GetNumVerts(208,6374
+  size_t GetNumFaces(210,6458
+  size_t GetNumEdges(212,6542
+  virtual bool save(218,6709
 
 Geometry/Sphere.h,107
 #define __sphere_h__13,546
@@ -50417,6 +50571,25 @@ Geometry/SignedDistanceSphere.h,102
 class SignedDistanceSphere 18,665
   float radius;25,859
 
+Geometry/Implicit.cpp,853
+const Implicit::VisualizationMode Implicit::Gradients 20,621
+const Implicit::VisualizationMode Implicit::Curvature 22,716
+Implicit::Implicit(25,812
+Implicit::~Implicit(~Implicit27,886
+void Implicit::Update(Update34,976
+void Implicit::Initialize(Initialize78,2510
+Vector3<float> Implicit::GetGradient(GetGradient94,2957
+float Implicit::GetCurvature(GetCurvature104,3366
+float Implicit::ComputeArea(ComputeArea111,3662
+float Implicit::ComputeVolume(ComputeVolume113,3721
+Bbox Implicit::GetBoundingBox(GetBoundingBox139,4425
+void Implicit::SetBoundingBox(SetBoundingBox144,4539
+void Implicit::SetTransform(SetTransform146,4621
+void Implicit::TransformW2O(TransformW2O151,4767
+void Implicit::Render(Render159,4968
+void Implicit::SetVisualizationMode(SetVisualizationMode261,7745
+void Implicit::SetColorMap(SetColorMap266,7873
+
 Geometry/ImplicitValueField.h,258
 #define __implicit_value_field_h__13,562
 class ImplicitValueField 19,685
@@ -50425,6 +50598,32 @@ class ImplicitValueField 19,685
   virtual ~ImplicitValueField(25,860
   virtual float GetValue(28,933
   virtual float GetMaxValue(33,1097
+
+Geometry/Mesh.cpp,216
+const Mesh::VisualizationMode Mesh::CurvatureVertex 15,566
+const Mesh::VisualizationMode Mesh::CurvatureFace 17,666
+float Mesh::Area(Area20,763
+float Mesh::Volume(Volume25,881
+size_t Mesh::Genus(Genus30,1003
+
+Fluid/FluidSolver.cpp,977
+void FluidSolver::AddSolid(AddSolid4,27
+void FluidSolver::AddFluid(AddFluid9,175
+Vector3<float> FluidSolver::GetValue(GetValue40,1198
+Vector3<float> FluidSolver::GetMaxValue(GetMaxValue49,1448
+int FluidSolver::Solve(Solve64,1850
+float FluidSolver::ComputeTimestep(ComputeTimestep129,3986
+float FluidSolver::ComputePotentialEnergy(ComputePotentialEnergy140,4323
+float FluidSolver::ComputeKineticEnergy(ComputeKineticEnergy142,4382
+void FluidSolver::ExternalForces(ExternalForces145,4466
+void FluidSolver::SelfAdvection(SelfAdvection171,5303
+void FluidSolver::EnforceDirichletBoundaryCondition(EnforceDirichletBoundaryCondition198,6439
+void FluidSolver::Projection(Projection214,6995
+void FluidSolver::VelocityExtension(VelocityExtension306,10714
+void FluidSolver::ClassifyVoxels(ClassifyVoxels376,13448
+void FluidSolver::ClassifyVoxel(ClassifyVoxel389,13774
+bool FluidSolver::IsSolid(IsSolid416,14721
+bool FluidSolver::IsFluid(IsFluid420,14818
 
 Fluid/FluidSolver.h,875
 #define _FLUID_SOLVER_H3,25
@@ -50479,6 +50678,13 @@ class UniformCubicSplineSubdivisionCurve 24,779
   virtual void Initialize(42,1331
   virtual const char *GetTypeName(GetTypeName48,1418
 
+Subdivision/LoopSubdivisionMesh.cpp,283
+void LoopSubdivisionMesh::Subdivide(Subdivide18,628
+LoopSubdivisionMesh::Subdivide(Subdivide54,1709
+Vector3<float> LoopSubdivisionMesh::VertexRule(VertexRule108,3101
+Vector3<float> LoopSubdivisionMesh::EdgeRule(EdgeRule117,3327
+float LoopSubdivisionMesh::Beta(Beta128,3649
+
 Subdivision/UniformCubicSpline.h,405
 #define __uniform_cubic_spline_h__13,562
 class UniformCubicSpline 22,743
@@ -50492,17 +50698,41 @@ class UniformCubicSpline 22,743
   virtual void Initialize(53,1739
   virtual const char *GetTypeName(GetTypeName57,1797
 
+Subdivision/UniformCubicSpline.cpp,221
+UniformCubicSpline::UniformCubicSpline(4,34
+float UniformCubicSpline::GetBSplineValue(GetBSplineValue16,430
+Vector3<float> UniformCubicSpline::GetValue(GetValue46,1412
+void UniformCubicSpline::Render(Render57,1677
+
 Subdivision/StrangeSubdivisionMesh.h,130
 #define _strange_dubdivmesh_2,29
 class StrangeSubdivisionMesh 6,101
   virtual void Subdivide(8,177
   bool Subdividable(14,280
 
+Subdivision/AdaptiveLoopSubdivisionMesh.cpp,320
+void AdaptiveLoopSubdivisionMesh::Subdivide(Subdivide17,649
+Vector3<float> AdaptiveLoopSubdivisionMesh::VertexRule(VertexRule89,2762
+AdaptiveLoopSubdivisionMesh::Subdivide1(Subdivide1110,3355
+AdaptiveLoopSubdivisionMesh::Subdivide2(Subdivide2165,4948
+AdaptiveLoopSubdivisionMesh::Subdivide3(Subdivide3214,6391
+
+Subdivision/UniformCubicSplineSubdivisionCurve.cpp,209
+UniformCubicSplineSubdivisionCurve::UniformCubicSplineSubdivisionCurve(4,50
+void UniformCubicSplineSubdivisionCurve::Subdivide(Subdivide12,338
+void UniformCubicSplineSubdivisionCurve::Render(Render27,798
+
 Subdivision/Subdivision.h,108
 #define _SUBDIVISION__H_3,26
 class Subdivision 8,104
   Subdivision(10,132
   virtual ~Subdivision(11,151
+
+Util/ObjIO.cpp,161
+bool ObjIO::Load(Load20,678
+bool ObjIO::ReadHeader(ReadHeader47,1354
+bool ObjIO::ReadData(ReadData60,1642
+Vector3<size_t> ObjIO::ReadTri(ReadTri116,3118
 
 Util/BlackWhiteColorMap.h,150
 #define __BLACKWHITE_COLOR_MAP_H__13,562
@@ -50527,6 +50757,9 @@ class GLObjectPlayback 24,788
   std::vector<SimpleMesh> mFrames;48,1333
   bool mFrameCapture;49,1368
   size_t mCurrentFrame;50,1390
+
+Util/HSVColorMap.cpp,45
+HSVColorMap::HSVColorMap(HSVColorMap18,662
 
 Util/Heap.h,392
 #define _HEAP13,541
@@ -50553,6 +50786,22 @@ class ColorMapFactory 20,669
   static std::map<std::map41,1298
   static std::map<std::string, ColorMap *> &GetMap(GetMap41,1298
 
+Util/IsoContourColorMap.cpp,117
+IsoContourColorMap::IsoContourColorMap(IsoContourColorMap19,736
+Vector3<float> IsoContourColorMap::Map(Map24,892
+
+Util/Heap.cpp,360
+Heap::Heap(Heap15,565
+Heap::~Heap(~Heap20,704
+void Heap::push(push25,774
+Heap::Heapable *Heap::peek(peek30,865
+Heap::Heapable *Heap::pop(pop32,946
+Heap::Heapable *Heap::remove(remove38,1050
+void Heap::update(update58,1488
+void Heap::print(print68,1738
+void Heap::percolateUp(percolateUp79,2046
+void Heap::percolateDown(percolateDown90,2319
+
 Util/HotColorMap.h,136
 #define __HOT_COLOR_MAP_H__13,555
 class HotColorMap 17,619
@@ -50560,6 +50809,26 @@ class HotColorMap 17,619
 
 Util/MarchingCubes.h,36
 #define __marching_cubes_h__13,558
+
+Util/trackball.cpp,460
+#define TRACKBALLSIZE 62,2670
+void vzero(70,2860
+void vset(76,2931
+void vsub(82,3019
+void vcopy(88,3174
+void vcross(94,3281
+float vlength(103,3527
+void vscale(107,3618
+void vnormal(113,3701
+float vdot(115,3759
+void vadd(119,3865
+void trackball(137,4549
+void axis_to_quat(183,5544
+static float tb_project_to_sphere(194,5824
+#define RENORMCOUNT 218,6500
+void add_quats(220,6524
+static void normalize_quat(259,7456
+void build_rotmatrix(272,7698
 
 Util/Stopwatch.h,452
 #define _STOPWATCH_H13,550
@@ -50575,6 +50844,13 @@ inline void Stopwatch::start(start69,1977
 inline double Stopwatch::stop(stop76,2164
 inline void Stopwatch::resume(resume85,2393
 inline double Stopwatch::read(read95,2625
+
+Util/ColorMap.cpp,83
+Vector3<float> ColorMap::Map(Map15,630
+Vector3<float> ColorMap::Map(Map26,1083
+
+Util/JetColorMap.cpp,45
+JetColorMap::JetColorMap(JetColorMap18,662
 
 Util/Util.h,367
 #define __util_h__13,544
@@ -50597,15 +50873,33 @@ class ObjIO 22,704
     std::vector<Vector3<size_t> > tris;36,1002
   } loadData;37,1042
 
+Util/MarchingCubes.cpp,49
+std::vector<Vector3<float> > Triangulate(21,705
+
+Util/GLObjectPlayback.cpp,144
+void GLObjectPlayback::Reset(Reset4,37
+SimpleMesh &GLObjectPlayback::NextFrame(NextFrame10,141
+void GLObjectPlayback::Render(Render26,594
+
 Util/MarchingCubesTable.h,102
 #define __mctable_h__2,22
 static int edgeTable[edgeTable4,45
 static int triTable[triTable29,1961
 
+Util/HotColorMap.cpp,45
+HotColorMap::HotColorMap(HotColorMap18,662
+
+Util/Console.cpp,68
+Console::Console(Console11,166
+Console::~Console(~Console31,665
+
 Util/JetColorMap.h,136
 #define __JET_COLOR_MAP_H__13,555
 class JetColorMap 17,619
   static ColorMapFactory::FactoryRegistration mFactoryRegistration;22,694
+
+Util/BlackWhiteColorMap.cpp,66
+BlackWhiteColorMap::BlackWhiteColorMap(BlackWhiteColorMap19,736
 
 Util/IsoContourColorMap.h,151
 #define __ISO_CONTOUR_COLOR_MAP_H__13,563
@@ -50619,6 +50913,10 @@ class ColorMap 19,644
   virtual ~ColorMap(22,685
   std::vector<Vector3<float> > mColors;30,963
 
+Util/ColorMapFactory.cpp,114
+ColorMap *ColorMapFactory::New(New4,31
+std::list<std::string> ColorMapFactory::GetColorMaps(GetColorMaps8,117
+
 Util/Console.h,281
 #define __CONSOLE_H__7,107
 class Console 11,150
@@ -50629,10 +50927,17 @@ class Console 11,150
   std::streambuf *m_old_cerr;m_old_cerr18,274
   std::streambuf *m_old_cin;m_old_cin19,304
 
+Util/Util.cpp,58
+std::string &lower(lower14,544
+std::string trim(19,666
+
 Util/HSVColorMap.h,136
 #define __HSV_COLOR_MAP_H__13,555
 class HSVColorMap 17,619
   static ColorMapFactory::FactoryRegistration mFactoryRegistration;22,694
+
+Util/GreenRedColorMap.cpp,60
+GreenRedColorMap::GreenRedColorMap(GreenRedColorMap18,683
 
 Util/Image_Impl.h,666
 #define _IMAGE_IMPL3,21
