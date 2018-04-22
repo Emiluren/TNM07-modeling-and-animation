@@ -290,9 +290,9 @@ float HalfEdgeMesh::FaceCurvature(size_t faceIndex) const {
   size_t indx = f(faceIndex).edge;
   const EdgeIterator it = GetEdgeIterator(indx);
 
-  const Vertex &v1 = v(it.GetEdgeVertexIndex());
-  const Vertex &v2 = v(it.Next().GetEdgeVertexIndex());
-  const Vertex &v3 = v(it.Next().GetEdgeVertexIndex());
+  const Vertex v1 = v(it.GetEdgeVertexIndex());
+  const Vertex v2 = v(it.Next().GetEdgeVertexIndex());
+  const Vertex v3 = v(it.Next().GetEdgeVertexIndex());
 
   return (v1.curvature + v2.curvature + v3.curvature) / 3.f;
 }
@@ -301,9 +301,9 @@ Vector3<float> HalfEdgeMesh::FaceNormal(size_t faceIndex) const {
   size_t indx = f(faceIndex).edge;
   const EdgeIterator it = GetEdgeIterator(indx);
 
-  const Vector3<float> &p1 = v(it.GetEdgeVertexIndex()).pos;
-  const Vector3<float> &p2 = v(it.Next().GetEdgeVertexIndex()).pos;
-  const Vector3<float> &p3 = v(it.Next().GetEdgeVertexIndex()).pos;
+  const Vector3<float> p1 = v(it.GetEdgeVertexIndex()).pos;
+  const Vector3<float> p2 = v(it.Next().GetEdgeVertexIndex()).pos;
+  const Vector3<float> p3 = v(it.Next().GetEdgeVertexIndex()).pos;
 
   const Vector3<float> e1 = p2 - p1;
   const Vector3<float> e2 = p3 - p1;
@@ -402,9 +402,9 @@ float HalfEdgeMesh::Area() const {
   for (Face face : mFaces) {
     const EdgeIterator it = GetEdgeIterator(face.edge);
 
-    const Vector3<float> &p1 = v(it.GetEdgeVertexIndex()).pos;
-    const Vector3<float> &p2 = v(it.Next().GetEdgeVertexIndex()).pos;
-    const Vector3<float> &p3 = v(it.Next().GetEdgeVertexIndex()).pos;
+    const Vector3<float> p1 = v(it.GetEdgeVertexIndex()).pos;
+    const Vector3<float> p2 = v(it.Next().GetEdgeVertexIndex()).pos;
+    const Vector3<float> p3 = v(it.Next().GetEdgeVertexIndex()).pos;
 
     area += Cross(p2 - p1, p3 - p1).Length() / 2;
   }
@@ -414,8 +414,16 @@ float HalfEdgeMesh::Area() const {
 /*! \lab1 Implement the volume */
 float HalfEdgeMesh::Volume() const {
   float volume = 0;
-  // Add code here
-  std::cerr << "Volume calculation not implemented for half-edge mesh!\n";
+  for (Face face : mFaces) {
+    const EdgeIterator it = GetEdgeIterator(face.edge);
+
+    const Vector3<float> p1 = v(it.GetEdgeVertexIndex()).pos;
+    const Vector3<float> p2 = v(it.Next().GetEdgeVertexIndex()).pos;
+    const Vector3<float> p3 = v(it.Next().GetEdgeVertexIndex()).pos;
+
+    const float faceArea = Cross(p2 - p1, p3 - p1).Length() / 2;
+    volume += (p1 + p2 + p2) * face.normal * faceArea / 9;
+  }
   return volume;
 }
 
