@@ -1,11 +1,13 @@
 ;;; Directory Local Variables
 ;;; For more information see (info "(emacs) Directory Variables")
 
-((c++-mode
-  (flycheck-gcc-include-path . ("/home/em/Programmering/skola/tnm079-student-master"))
+((nil
+  (cmake-ide-build-dir . "build/debug"))
+ (c++-mode
   (c-basic-offset . 2))
  (c-mode
   (mode . c++)))
+
 
 
 

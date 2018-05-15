@@ -27,7 +27,7 @@ HalfEdgeMesh::~HalfEdgeMesh() {}
  */
 bool HalfEdgeMesh::AddFace(const std::vector<Vector3<float> > &verts) {
   // Add the vertices of the face/triangle
-  size_t v_ind1, v_ind2, v_ind3;;
+  size_t v_ind1, v_ind2, v_ind3;
   AddVertex(verts[0], v_ind1);
   AddVertex(verts[1], v_ind2);
   AddVertex(verts[2], v_ind3);
