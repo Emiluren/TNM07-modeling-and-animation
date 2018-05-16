@@ -158,7 +158,7 @@ template <typename Real> Real Matrix4x4<Real>::Determinant() const {
 }
 
 template <typename Real> bool Matrix4x4<Real>::IsSingular(Real epsilon) const {
-  return fabsf(Determinant() < epsilon);
+  return fabsf(Determinant()) < epsilon;
 }
 
 template <typename Real> Matrix4x4<Real> Matrix4x4<Real>::Inverse() const {
