@@ -9,17 +9,33 @@ UniformCubicSplineSubdivisionCurve::UniformCubicSplineSubdivisionCurve(
   this->mLineWidth = lineWidth;
 }
 
+// calc_c_prime and calc_c_prime_half correspond to equation 30 from
+// the lab description
+Vector3<float> calc_c_prime(int i, const std::vector<Vector3<float>>& coeffs) {
+  return 1.0 / 8.0 * (coeffs[i - 1] + 6 * coeffs[i] + coeffs[i + 1]);
+}
+
+Vector3<float> calc_c_prime_half(int i, const std::vector<Vector3<float>>& coeffs) {
+  return 1.0 / 2.0 * (coeffs[i] + coeffs[i + 1]);
+}
+
 void UniformCubicSplineSubdivisionCurve::Subdivide() {
   // Allocate space for new coefficients
   std::vector<Vector3<float>> newc;
 
   assert(mCoefficients.size() > 4 && "Need at least 5 points to subdivide");
+  size_t totalNewcSize = mCoefficients.size() * 2 - 1;
 
-  // Implement the subdivision scheme for a natural cubic spline here
+  newc.push_back(mCoefficients[0]);
+  newc.push_back(calc_c_prime_half(0, mCoefficients));
+  for (int i = 1; i < mCoefficients.size() - 1; i++) {
+    newc.push_back(calc_c_prime(i, mCoefficients));
+    newc.push_back(calc_c_prime_half(i, mCoefficients));
+  }
+  newc.push_back(mCoefficients.back());
 
-  // If 'mCoefficients' had size N, how large should 'newc' be? Perform a check
-  // here!
-  assert(true && "Incorrect number of new coefficients!");
+  assert(newc.size() == totalNewcSize &&
+  	 "Incorrect number of new coefficients!");
 
   mCoefficients = newc;
 }
