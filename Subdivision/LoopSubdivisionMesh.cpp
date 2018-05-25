@@ -70,6 +70,7 @@ LoopSubdivisionMesh::Subdivide(size_t faceIndex) {
   v2 = eit.GetEdgeVertexIndex();
 
   // Compute positions of the vertices
+  // (Doesn't this have to be done after computing the edge positions?)
   Vector3<float> pn0 = VertexRule(v0);
   Vector3<float> pn1 = VertexRule(v1);
   Vector3<float> pn2 = VertexRule(v2);
@@ -108,20 +109,29 @@ LoopSubdivisionMesh::Subdivide(size_t faceIndex) {
 Vector3<float> LoopSubdivisionMesh::VertexRule(size_t vertexIndex) {
   // Get the current vertex
   Vector3<float> vtx = v(vertexIndex).pos;
+  std::vector<size_t> neighbors = FindNeighborVertices(vertexIndex);
+  size_t n = neighbors.size();
+  //float w = 5.0f/8.0f - pow(3 + 2 * cos(2 * M_PI / n), 2) / 64.0f;
+  float beta = Beta(n);
 
+  // Calculate the new vertex based on step 2 of Loop's subdivision scheme
+  vtx *= (1.0f - beta * n);
+  for (size_t vInd : neighbors) {
+    vtx += v(vInd).pos * beta;
+  }
   return vtx;
 }
 
 /*! Computes a new vertex, placed along an edge in the old mesh
  */
 Vector3<float> LoopSubdivisionMesh::EdgeRule(size_t edgeIndex) {
-
-  // Place the edge vertex halfway along the edge
-  HalfEdge &e0 = e(edgeIndex);
-  HalfEdge &e1 = e(e0.pair);
-  Vector3<float> &v0 = v(e0.vert).pos;
-  Vector3<float> &v1 = v(e1.vert).pos;
-  return (v0 + v1) * 0.5f;
+  HalfEdge e0 = e(edgeIndex);
+  HalfEdge e1 = e(e0.pair);
+  Vector3<float> v0 = v(e0.vert).pos;
+  Vector3<float> v1 = v(e1.vert).pos;
+  Vector3<float> v2 = v(e(e0.next).vert).pos;
+  Vector3<float> v3 = v(e(e1.next).vert).pos;
+  return (v0 + v1) * 0.375f + (v2 + v3) * 0.125f;
 }
 
 //! Return weights for interior verts
