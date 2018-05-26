@@ -752,7 +752,7 @@ enum MatrixPosition {
   Xsquared = 0, XY, XZ, X,
   Ysquared = 5, YZ, Y,
   Zsquared = 10, Z,
-  Constant = 16
+  Constant = 15
 };
 
 void Mset(Matrix4x4<float>& M, MatrixPosition mp, float val) {
