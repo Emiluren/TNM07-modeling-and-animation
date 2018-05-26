@@ -738,9 +738,38 @@ void FrameMain::AddObjectImplicitMesh(wxCommandEvent &event) {
   mGLViewer->Render();
 }
 
-void FrameMain::AddObjectQuadricPlane(wxCommandEvent &event) {
+Matrix4x4<float> makeZeroMatrix() {
   Matrix4x4<float> M;
-  // Construct the quadric matrix here
+  for (int i = 0; i < 4; i++) {
+    M(i,i) = 0;
+  }
+  return M;
+}
+
+// Some trickery to convert from the factor in the formula to a
+// position in the matrix
+enum MatrixPosition {
+  Xsquared = 0, XY, XZ, X,
+  Ysquared = 5, YZ, Y,
+  Zsquared = 10, Z,
+  Constant = 16
+};
+
+void Mset(Matrix4x4<float>& M, MatrixPosition mp, float val) {
+  int i = mp % 4;
+  int j = mp / 4;
+  if (mp != Xsquared && mp != Ysquared && mp != Zsquared && mp != Constant) {
+    val *= 0.5f;
+  }
+  M(i, j) = val;
+  M(j, i) = val;
+}
+
+void FrameMain::AddObjectQuadricPlane(wxCommandEvent &event) {
+  Matrix4x4<float> M = makeZeroMatrix();
+  Mset(M, X, 1);
+  Mset(M, Y, 1);
+  Mset(M, Z, 1);
 
   Quadric *Q = new Quadric(M);
   Q->SetBoundingBox(Bbox(-1, 1));
@@ -753,8 +782,10 @@ void FrameMain::AddObjectQuadricPlane(wxCommandEvent &event) {
 }
 
 void FrameMain::AddObjectQuadricCylinder(wxCommandEvent &event) {
-  Matrix4x4<float> M;
-  // Construct the quadric matrix here
+  Matrix4x4<float> M = makeZeroMatrix();
+  Mset(M, Xsquared, 1);
+  Mset(M, Ysquared, 1);
+  Mset(M, Constant, -1);
 
   Quadric *Q = new Quadric(M);
   Q->SetBoundingBox(Bbox(-1, 1));
@@ -767,8 +798,11 @@ void FrameMain::AddObjectQuadricCylinder(wxCommandEvent &event) {
 }
 
 void FrameMain::AddObjectQuadricEllipsoid(wxCommandEvent &event) {
-  Matrix4x4<float> M;
-  // Construct the quadric matrix here
+  Matrix4x4<float> M = makeZeroMatrix();
+  Mset(M, Xsquared, 1);
+  Mset(M, Ysquared, 1);
+  Mset(M, Zsquared, 1);
+  Mset(M, Constant, -1);
 
   Quadric *Q = new Quadric(M);
   Q->SetBoundingBox(Bbox(-1, 1));
@@ -781,8 +815,10 @@ void FrameMain::AddObjectQuadricEllipsoid(wxCommandEvent &event) {
 }
 
 void FrameMain::AddObjectQuadricCone(wxCommandEvent &event) {
-  Matrix4x4<float> M;
-  // Construct the quadric matrix here
+  Matrix4x4<float> M = makeZeroMatrix();
+  Mset(M, Xsquared, 1);
+  Mset(M, Ysquared, 1);
+  Mset(M, Zsquared, -1);
 
   Quadric *Q = new Quadric(M);
   Q->SetBoundingBox(Bbox(-1, 1));
@@ -795,8 +831,10 @@ void FrameMain::AddObjectQuadricCone(wxCommandEvent &event) {
 }
 
 void FrameMain::AddObjectQuadricParaboloid(wxCommandEvent &event) {
-  Matrix4x4<float> M;
-  // Construct the quadric matrix here
+  Matrix4x4<float> M = makeZeroMatrix();
+  Mset(M, Xsquared, 1);
+  Mset(M, Ysquared, 1); // this one says +- in the description
+  Mset(M, Z, -1);
 
   Quadric *Q = new Quadric(M);
   Q->SetBoundingBox(Bbox(-2, 2));
@@ -809,8 +847,11 @@ void FrameMain::AddObjectQuadricParaboloid(wxCommandEvent &event) {
 }
 
 void FrameMain::AddObjectQuadricHyperboloid(wxCommandEvent &event) {
-  Matrix4x4<float> M;
-  // Construct the quadric matrix here
+  Matrix4x4<float> M = makeZeroMatrix();
+  Mset(M, Xsquared, 1);
+  Mset(M, Ysquared, 1);
+  Mset(M, Zsquared, -1);
+  Mset(M, Constant, 1); // This one says +- also
 
   Quadric *Q = new Quadric(M);
   Q->SetBoundingBox(Bbox(-2, 2));
