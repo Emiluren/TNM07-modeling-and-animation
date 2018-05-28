@@ -38,7 +38,10 @@ public:
     // Compute and return a stable timestep
     // (Hint: Function3D::GetMaxValue())
     Vector3<float> maxV = mVectorField->GetMaxValue();
-    return mLS->GetDx() / std::max(std::max(maxV[0], maxV[1]), maxV[1]);
+    return mLS->GetDx() / std::max(
+      std::max(abs(maxV[0]), abs(maxV[1])),
+      abs(maxV[1])
+    );
   }
 
   virtual void Propagate(float time) {
