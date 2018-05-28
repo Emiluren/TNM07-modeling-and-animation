@@ -4,7 +4,7 @@
 ((nil
   (cmake-ide-build-dir . "build/debug")
   ;; Just so I can use it for gdb :P
-  (cmake-ide-executable . "MoA"))
+  (cmake-ide-executable . "bin/MoA"))
  (c++-mode
   (c-basic-offset . 2))
  (c-mode

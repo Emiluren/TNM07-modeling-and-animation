@@ -357,7 +357,15 @@ void HalfEdgeMesh::Update() {
     f(i).normal = FaceNormal(i);
   }
   // Then update all vertex normals and curvature
+  // TODO: debug this, it crashes after a few iterations of mesh subdivision
+  // It seems like Update runs twice on subdivision
+  // If the parentheses are expanded in LoopSubdivisionMesh::EdgeRule
+  // in this expressions (v0 + v1) * 0.375f + (v2 + v3) * 0.125f
+  // This loop will crash on like the third subdivision, the second
+  // Update with i = 0.
+  // print mVerts errors in gdb
   for (size_t i = 0; i < GetNumVerts(); i++) {
+    //std::cout << i << std::endl;
     // Vertex normals are just weighted averages
     mVerts.at(i).normal = VertexNormal(i);
   }
