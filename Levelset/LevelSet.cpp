@@ -159,7 +159,9 @@ Vector3<float> LevelSet::GetGradient(float x, float y, float z) const {
     Vector3<float>(1, 0, 0) * factors[0] +
     Vector3<float>(0, 1, 0) * factors[1] +
     Vector3<float>(0, 0, 1) * factors[2];
-  return grad.Normalize();
+  //std::cout << grad.Length() << std::endl;
+  //return grad.Normalize();
+  return grad; // Unsure if I should normalize here
 }
 
 /*!
