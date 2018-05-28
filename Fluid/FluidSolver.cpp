@@ -150,18 +150,18 @@ void FluidSolver::ExternalForces(float dt) {
   for (int i = 0; i < mVoxels.GetDimX(); i++) {
     for (int j = 0; j < mVoxels.GetDimY(); j++) {
       for (int k = 0; k < mVoxels.GetDimZ(); k++) {
-
         // If we're in fluid (see FluidSolver::IsFluid()), sample the external
         // force field (using world coordinates, see
         // FluidSolver::TransformGridToWorld()) and perform the integration to
         // update the velocity field (mVelocityField). The simplest possible
         // integrator is the explicit Euler.
-        // TODO: Add code here
 
-          // OBS: DELETE FOLLOWING LINE, IT'S JUST HERE TO SUPPRESS A WARNING FOR UNUSED VARIABLES
-          x = 1.0f;
-          y = 1.0f;
-          z = 1.0f;
+        if (IsFluid(i, j, k)) {
+          TransformGridToWorld(i, j, k, x, y, z);
+          Vector3<float> force = mExternalForces->GetValue(x, y, z);
+          Vector3<float> oldV = mVelocityField.GetValue(i, j, k);
+          mVelocityField.SetValue(i, j, k, oldV + force * dt);
+        }
       }
     }
   }
@@ -199,12 +199,31 @@ void FluidSolver::EnforceDirichletBoundaryCondition() {
   for (int i = 0; i < mVoxels.GetDimX(); i++) {
     for (int j = 0; j < mVoxels.GetDimY(); j++) {
       for (int k = 0; k < mVoxels.GetDimZ(); k++) {
-
         // If we're in fluid, check the neighbors of (i,j,k) to
         // see if it's next to a solid boundary. If so, project
         // the velocity to the boundary plane by setting the
         // velocity to zero along the given dimension.
-        // TODO: Add code here
+
+        if (IsFluid(i, j, k)) {
+          Vector3<float> v = mVelocityField.GetValue(i, j, k);
+
+          if ((IsSolid(i - 1, j, k) && v[0] < 0) ||
+              (IsSolid(i + 1, j, k) && v[0] > 0)) {
+            v[0] = 0;
+          }
+
+          if ((IsSolid(i, j - 1, k) && v[1] < 0) ||
+              (IsSolid(i, j + 1, k) && v[1] > 0)) {
+            v[1] = 0;
+          }
+
+          if ((IsSolid(i, j, k - 1) && v[2] < 0) ||
+              (IsSolid(i, j, k + 1) && v[2] > 0)) {
+            v[2] = 0;
+          }
+
+          mVelocityField.SetValue(i, j, k, v);
+        }
       }
     }
   }
@@ -247,7 +266,10 @@ void FluidSolver::Projection() {
 
           // Compute entry for b vector (divergence of the velocity field:
           // \nabla \dot w_i,j,k)
-          // TODO: Add code here
+          b[ind] =
+            (mVelocityField.GetValue(i + 1, j, k)[0] - mVelocityField.GetValue(i - 1, j, k)[0] +
+             mVelocityField.GetValue(i, j + 1, k)[1] - mVelocityField.GetValue(i, j - 1, k)[1] +
+             mVelocityField.GetValue(i, j, k + 1)[2] - mVelocityField.GetValue(i, j, k - 1)[2]) / (2 * mDx);
 
           // Compute entries for A matrix (discrete Laplacian operator).
           // The A matrix is a sparse matrix but can be used like a regular
@@ -259,7 +281,18 @@ void FluidSolver::Projection() {
           // Remember to enforce the boundary conditions if we're next to
           // a solid (allow no change of flow in that direction).
           // Remember to treat the boundaries of (i,j,k).
-          // TODO: Add code here
+          size_t neighbors[] = { ind_ip, ind_im, ind_jp, ind_jm, ind_kp, ind_km };
+          int nonsolid_neighbors = 0;
+          for (size_t neigh_ind : neighbors) {
+            int ni, nj, nk;
+            mVoxels.ComputeIndices(neigh_ind, ni, nj, nk);
+
+            if (!IsSolid(ni, nj, nk)) {
+              A(ind, neigh_ind) = 1 / dx2;
+              nonsolid_neighbors++;
+            }
+          }
+          A(ind, ind) = -nonsolid_neighbors/dx2;
         }
       }
     }
@@ -295,7 +328,11 @@ void FluidSolver::Projection() {
           // Compute the gradient of x at (i,j,k) using central differencing
           // and subtract this gradient from the velocity field.
           // Thereby removing divergence - preserving volume.
-          // TODO: Add code here
+          float di = x[ind_ip] - x[ind_im];
+          float dj = x[ind_jp] - x[ind_jm];
+          float dk = x[ind_kp] - x[ind_km];
+
+          mVelocityField.SetValue(i, j, k, mVelocityField.GetValue(i, j, k) - Vector3<float>(di, dj, dk));
         }
       }
     }
