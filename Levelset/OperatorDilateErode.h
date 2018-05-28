@@ -34,7 +34,7 @@ public:
 
   virtual float ComputeTimestep() {
     // Compute and return a stable timestep
-    return abs(mLS->GetDx() / mF);
+    return mLS->GetDx() / abs(mF);
   }
 
   virtual void Propagate(float time) {
