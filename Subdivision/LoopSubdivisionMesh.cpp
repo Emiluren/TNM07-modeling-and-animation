@@ -129,8 +129,8 @@ Vector3<float> LoopSubdivisionMesh::EdgeRule(size_t edgeIndex) {
   HalfEdge e1 = e(e0.pair);
   Vector3<float> v0 = v(e0.vert).pos;
   Vector3<float> v1 = v(e1.vert).pos;
-  Vector3<float> v2 = v(e(e0.next).vert).pos;
-  Vector3<float> v3 = v(e(e1.next).vert).pos;
+  Vector3<float> v2 = v(e(e0.prev).vert).pos;
+  Vector3<float> v3 = v(e(e1.prev).vert).pos;
   return (v0 + v1) * 0.375f + (v2 + v3) * 0.125f;
 }
 
