@@ -88,9 +88,9 @@ public:
   }
 
   void ComputeIndices(size_t ind, int &i, int &j, int &k) const {
-    i = i / mPremult;
-    j = (i % mPremult) / mDimZ;
-    k = (i % mPremult) % mDimZ;
+    i = ind / mPremult;
+    j = (ind % mPremult) / mDimZ;
+    k = (ind % mPremult) % mDimZ;
   }
 
   //! Sets the value at i,j,k to val

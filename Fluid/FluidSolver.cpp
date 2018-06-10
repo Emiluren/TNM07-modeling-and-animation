@@ -331,8 +331,9 @@ void FluidSolver::Projection() {
           float di = x[ind_ip] - x[ind_im];
           float dj = x[ind_jp] - x[ind_jm];
           float dk = x[ind_kp] - x[ind_km];
+          Vector3<float> div = Vector3<float>(di, dj, dk) / (2.0f * mDx);
 
-          mVelocityField.SetValue(i, j, k, mVelocityField.GetValue(i, j, k) - Vector3<float>(di, dj, dk));
+          mVelocityField.SetValue(i, j, k, mVelocityField.GetValue(i, j, k) - div);
         }
       }
     }
